@@ -1,0 +1,120 @@
+.centerDiv {
+  justify-content: unset;
+}
+
+.main {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4rem;
+  width: 100%;
+  height: auto;
+  margin: auto 0;
+  padding-bottom: 4rem;
+}
+
+.mainBox {
+  flex-basis: 0;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid #444;
+  cursor: pointer;
+  /* max-width: 50%; */
+}
+
+.mainImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.mainText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.mainFullName {
+  font-size: 2rem;
+  font-weight: 500;
+  padding-left: 1rem;
+}
+
+.mainRole {
+  font-size: 1.5rem;
+  font-weight: 300;
+  opacity: 0.8;
+  padding-left: 1rem;
+}
+
+.mainSocials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.mainLinkedIn,
+.mainGithub {
+  padding: 1rem;
+  border-radius: 2rem;
+  background-color: #222;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.mainLinkedIn:hover,
+.mainGithub:hover {
+  background-color: #333;
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 30em) {
+  .mainBox {
+    padding: 1rem;
+  }
+
+  .mainImage > img {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .mainText {
+    gap: 1rem;
+  }
+
+  .mainFullName {
+    font-size: 1.5rem;
+    padding-left: 0.75rem;
+  }
+
+  .mainRole {
+    font-size: 1rem;
+    padding-left: 0.75rem;
+  }
+
+  .mainSocials {
+    gap: 0.75rem;
+  }
+
+  .mainLinkedIn,
+  .mainGithub {
+    border-radius: 1rem;
+    gap: 0.75rem;
+    font-size: 1rem;
+  }
+}

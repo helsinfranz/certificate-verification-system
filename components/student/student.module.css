@@ -1,0 +1,581 @@
+.centerDiv {
+  width: 85vw;
+  height: 100vh;
+  display: flex;
+  color: white;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.header .img {
+  display: flex;
+  align-items: center;
+}
+
+.header .img img {
+  height: 12rem;
+  width: 12rem;
+}
+
+.header .Services {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header .Services > span {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.header .Services h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.header a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.75);
+  transition: 0.3s;
+}
+
+.header a:hover {
+  color: rgba(255, 255, 255);
+  transition: 0.3s;
+}
+
+.selectedNav {
+  color: rgba(255, 255, 255);
+}
+
+.header .Services > span {
+  width: 2px;
+  height: 2px;
+}
+
+.header .FAQs {
+  justify-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header .FAQs h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.heading {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  text-align: center;
+}
+
+.heading h1 {
+  font-size: 7rem;
+  font-weight: 900;
+}
+
+.heading p {
+  font-size: 1.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.searchbar {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.5rem;
+  background-color: rgb(30, 30, 30);
+}
+
+.searchbar input {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: white;
+  outline: none;
+  padding: 0.5rem 2rem;
+  width: 100%;
+}
+
+.searchbar::placeholder {
+  color: white;
+}
+
+.searchbar button {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 999px;
+  padding: 1.5rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: black;
+  outline: none;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+}
+
+.sections {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.sections h2 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.boxes {
+  display: flex;
+  align-items: center;
+  gap: 7rem;
+  justify-content: space-between;
+}
+
+.boxes .box {
+  background-color: black;
+  border-radius: 2rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  cursor: default;
+  border: 1px solid transparent;
+  transition: 0.3s;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.boxes .box:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transition: 0.3s;
+}
+
+.box h4 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.box p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.smallScreenOptions {
+  display: none;
+}
+
+.searchOn {
+  position: fixed;
+  width: calc(100% - 4rem);
+  top: 2rem;
+  left: 2rem;
+  z-index: 100;
+  border: 1px solid rgb(255, 255, 255, 0.1);
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(0.5rem) brightness(0.5);
+  z-index: 99;
+  opacity: 1;
+  pointer-events: all;
+  transition: 0.5s;
+}
+
+.viewResult {
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  width: calc(100% - 4rem);
+  height: calc(100% - 12rem);
+  border-radius: 2rem;
+  top: 14rem;
+  left: 2rem;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgb(255, 255, 255, 0.1);
+  transition: 0.5s;
+  display: flex;
+  padding: 4rem;
+  flex-direction: column;
+  /* make this gap responsive */
+  gap: 8rem;
+  overflow-y: auto;
+  text-align: start;
+}
+
+.viewResult > h3 {
+  font-size: 4rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.viewResult > h3 > strong {
+  /* font-size: 4rem; */
+  font-weight: 800;
+  color: rgba(255, 255, 255);
+}
+
+.viewResultOn {
+  opacity: 1;
+  pointer-events: all;
+  transition: 0.5s;
+  top: 10rem;
+}
+
+.gridResultView {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: flex-start;
+  justify-items: flex-start;
+  gap: 4rem;
+  row-gap: 8rem;
+  /* height: 100%; */
+}
+
+.gridResultViewSingle,
+.gridResultViewTotal {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  /* border: 1px solid rgba(255, 255, 255, 0.2); */
+  /* width: 100%; */
+  /* height: 100%; */
+  /* border-radius: 1rem; */
+  /* padding: 1rem; */
+}
+
+.gridResultViewTotal {
+  background-color: #222;
+  width: 100%;
+  /* height: 100%; */
+  border-radius: 1rem;
+  padding: 4rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gridResultViewTopic {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+.gridResultViewMain {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.loadingHolder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 73em) {
+  .heading {
+    width: 70%;
+  }
+
+  .heading h1 {
+    font-size: 6rem;
+  }
+
+  .heading p {
+    font-size: 1.5rem;
+  }
+
+  .boxes .box {
+    height: 100%;
+  }
+
+  .boxes {
+    gap: 4rem;
+  }
+
+  .box h4 {
+    font-size: 1.3rem;
+  }
+
+  .box p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 60.125em) {
+  .heading {
+    width: 90%;
+    gap: 3rem;
+  }
+
+  .heading h1 {
+    font-size: 4.5rem;
+  }
+
+  .heading p {
+    font-size: 1.3rem;
+  }
+
+  .boxes {
+    gap: 2rem;
+  }
+
+  .box h4 {
+    font-size: 1.2rem;
+  }
+
+  .box p {
+    font-size: 0.8rem;
+  }
+
+  .viewResult {
+    padding: 3rem;
+    gap: 0rem;
+    justify-content: space-between;
+  }
+
+  .viewResult > h3 {
+    font-size: 3rem;
+  }
+
+  .gridResultView {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .gridResultViewSingle,
+  .gridResultViewTotal {
+    gap: 1rem;
+  }
+
+  .gridResultViewTotal {
+    padding: 2rem;
+  }
+
+  .gridResultViewTopic {
+    font-size: 2rem;
+  }
+
+  .gridResultViewMain {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 48.75em) {
+  .header .img img {
+    height: 10rem;
+    width: 10rem;
+  }
+
+  .header .Services h3,
+  .header .FAQs h3 {
+    font-size: 1.2rem;
+  }
+
+  .heading {
+    gap: 2rem;
+  }
+
+  .heading h1 {
+    font-size: 3.5rem;
+  }
+
+  .heading p {
+    font-size: 1rem;
+  }
+
+  .searchbar {
+    padding: 0.2rem;
+  }
+
+  .searchbar input {
+    font-size: 1.2rem;
+  }
+
+  .searchbar button {
+    padding: 1.2rem 2rem;
+    font-size: 1rem;
+  }
+
+  .boxes {
+    gap: 2rem;
+  }
+
+  .box h4 {
+    font-size: 1rem;
+  }
+
+  .viewResult {
+    height: calc(100% - 10rem);
+    top: 10rem !important;
+  }
+
+  .viewResultOn {
+    top: 8rem !important;
+  }
+}
+
+@media (max-width: 36.25em) {
+  .centerDiv {
+    height: 100%;
+  }
+  .header {
+    padding: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0rem;
+  }
+  .header .img,
+  .header .FAQs {
+    display: none;
+  }
+  .header .Services {
+    margin: 0;
+  }
+  .smallScreenOptions {
+    display: block;
+  }
+
+  .heading {
+    gap: 4rem;
+  }
+
+  .heading h1 {
+    font-size: 2.5rem;
+  }
+
+  .heading p {
+    font-size: 1.2rem;
+  }
+
+  .searchbar {
+    width: 100%;
+  }
+
+  .sections {
+    width: 90%;
+    margin-top: 4rem;
+  }
+
+  .boxes {
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .searchOn {
+    width: calc(100% - 4rem);
+  }
+
+  .viewResult {
+    padding: 2rem;
+  }
+
+  .viewResult > h3 {
+    font-size: 2.5rem;
+  }
+
+  .gridResultView {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .gridResultViewTotal {
+    padding: 1.5rem;
+  }
+
+  .gridResultViewTopic {
+    font-size: 1.5rem;
+  }
+
+  .gridResultViewMain {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 30em) {
+  .centerDiv {
+    width: 90vw;
+    padding: 0.5rem;
+  }
+  .header .Services {
+    gap: 0.5rem;
+  }
+  .header .Services h3 {
+    font-size: 1.2rem;
+  }
+  .heading h1 {
+    font-size: 2rem;
+  }
+  .searchbar {
+    padding: 0.1rem;
+  }
+  .searchbar input {
+    font-size: 0.8rem;
+  }
+  .searchbar button {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.8rem;
+  }
+  .heading p {
+    font-size: 1rem;
+  }
+  .sections {
+    width: 100%;
+  }
+  .sections > h2 {
+    font-size: 1.2rem;
+  }
+  .viewResult {
+    height: calc(100% - 9rem);
+    top: 9rem !important;
+  }
+
+  .viewResultOn {
+    top: 7rem !important;
+  }
+}

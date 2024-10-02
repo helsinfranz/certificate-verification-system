@@ -1,0 +1,257 @@
+/* .logoMain {
+  position: absolute;
+  top: 7rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+.loginBox {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30vw;
+  padding: 4rem;
+  margin: 2rem auto;
+  transform: translate(-50%, -55%);
+  /* background: rgba(0, 0, 0, 0.9); */
+  backdrop-filter: blur(30px);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 1rem;
+}
+
+.loginBox p:first-child {
+  margin: 0 0 3.5rem;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.loginBox .userBox {
+  position: relative;
+}
+
+.loginBox .userBox input {
+  width: 100%;
+  padding: 1rem 0;
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 3rem;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  outline: none;
+  background: transparent;
+}
+
+.loginBox .userBox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1rem 0;
+  font-size: 1.6rem;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.loginBox .userBox input:focus,
+.loginBox .userBox input:valid {
+  border-color: rgba(255, 255, 255);
+}
+
+.loginBox .userBox input:focus ~ label,
+.loginBox .userBox input:valid ~ label {
+  top: -2rem;
+  left: 0;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.loginBox form button {
+  position: relative;
+  display: inline-block;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.6rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  margin-top: 2.5rem;
+  margin-bottom: 3.5rem;
+  letter-spacing: 3px;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+  height: 50px;
+}
+
+.loginBox button:hover {
+  background: #fff;
+  color: #272727;
+  border-radius: 5px;
+}
+
+.loginBox button span {
+  position: absolute;
+  display: block;
+}
+
+.loginBox button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff);
+  animation: btn-anim1 1.5s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+.loginBox button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #fff);
+  animation: btn-anim2 1.5s linear infinite;
+  animation-delay: 0.375s;
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+
+  50%,
+  100% {
+    top: 100%;
+  }
+}
+
+.loginBox button span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #fff);
+  animation: btn-anim3 1.5s linear infinite;
+  animation-delay: 0.75s;
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+.loginBox button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #fff);
+  animation: btn-anim4 1.5s linear infinite;
+  animation-delay: 1.125s;
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}
+
+.loginBox p:last-child {
+  color: #aaa;
+  font-size: 1.4rem;
+}
+
+.loginBox a.a2 {
+  color: #fff;
+  text-decoration: none;
+}
+
+.loginBox a.a2:hover {
+  background: transparent;
+  color: #aaa;
+  border-radius: 5px;
+}
+
+/* Make it responsive */
+
+@media (max-width: 1024px) {
+  .loginBox {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .loginBox {
+    width: 75%;
+  }
+}
+
+@media (max-width: 480px) {
+  .loginBox {
+    width: 95%;
+    padding: 3rem;
+  }
+
+  .loginBox form button {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    font-size: 1.4rem;
+  }
+
+  .loginBox p:last-child {
+    font-size: 1.2rem;
+  }
+
+  .loginBox a.a2 {
+    font-size: 1.2rem;
+  }
+
+  .loginBox p:first-child {
+    font-size: 2.5rem;
+  }
+
+  .loginBox .userBox input {
+    padding: 1rem 0;
+    font-size: 1.3rem;
+  }
+
+  .loginBox .userBox label {
+    padding: 1rem 0;
+    font-size: 1.3rem;
+  }
+
+  .loginBox .userBox input:focus ~ label,
+  .loginBox .userBox input:valid ~ label {
+    font-size: 1rem;
+  }
+}
