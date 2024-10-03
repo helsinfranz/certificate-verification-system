@@ -6,7 +6,6 @@ import { useSession } from "next-auth/react";
 import classes from "@/styles/auth.module.css";
 import Link from "next/link";
 import Loader from "@/components/loader/loader";
-import Image from "next/image";
 
 export default function Auth() {
   const router = useRouter();
@@ -89,12 +88,12 @@ export default function Auth() {
         <Head>
           <title>
             {authKey === "login"
-              ? "Login - Result Management System"
-              : "Register - Result Management System"}
+              ? "Login - Certificate Verification System"
+              : "Register - Certificate Verification System"}
           </title>
           <meta
             name="description"
-            content="Admin Page for result management system"
+            content="Admin Page for certificate verification system"
           />
         </Head>
         {/* <div className={classes.logoMain}>
@@ -117,7 +116,7 @@ export default function Auth() {
                   <label htmlFor="name">Name</label>
                 </div>
                 <div className={classes.userBox}>
-                  <input type="name" required ref={loginEmail} name="email" />
+                  <input type="name" required ref={emailRef} name="email" />
                   <label htmlFor="email">Email</label>
                 </div>
                 <div className={classes.userBox}>
@@ -126,7 +125,7 @@ export default function Auth() {
                     required
                     minLength={4}
                     maxLength={20}
-                    ref={loginPassword}
+                    ref={passwordRef}
                   />
                   <label htmlFor="password">Password</label>
                 </div>

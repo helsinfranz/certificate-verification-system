@@ -5,10 +5,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Coders - Result Management System</title>
+        <title>Coders - Certificate Verification System</title>
         <meta
           name="description"
-          content="Coders for result management system"
+          content="Coders for certificate verification system"
         />
         <style>{`body { background: #000!important; }`}</style>
       </Head>
