@@ -23,15 +23,21 @@ export default async function handler(req, res) {
 
   data.map((item, index) => {
     let studentID = item.student_id;
-    if (!item.student_id || !item.marks || isNaN(item.marks)) {
+    if (
+      !item.student_id ||
+      !item.name ||
+      !item.internship_domain ||
+      !item.start ||
+      !item.end
+    ) {
       res.status(422).json({
         message: "Error: Invalid data on id: " + item.student_id + ".",
       });
       return;
     }
     if (isNaN(item.student_id)) {
-      studentID = item.id.trim();
-      if (item.id.trim().length === 0) {
+      studentID = item.student_id.trim();
+      if (item.student_id.trim().length === 0) {
         res.status(422).json({
           message: "Error: Invalid data on id " + item.student_id + ".",
         });
@@ -40,7 +46,10 @@ export default async function handler(req, res) {
     }
     trimmedData.push({
       student_id: studentID,
-      marks: parseFloat(item.marks).toFixed(2),
+      name: item.name?.trim(),
+      internship_domain: item.internship_domain?.trim(),
+      start: item.start?.trim(),
+      end: item.end?.trim(),
     });
   });
 
@@ -57,11 +66,14 @@ export default async function handler(req, res) {
   try {
     const bulkOperations = trimmedData.map((item) => ({
       updateOne: {
-        filter: { student_id: item.student_id.toString() },
+        filter: { certificate_id: item.student_id.toString() },
         update: {
           $set: {
-            student_id: item.student_id.toString(),
-            assessment_marks: item.marks,
+            certificate_id: item.student_id.toString(),
+            name: item.name,
+            internship_domain: item.internship_domain,
+            start: item.start,
+            end: item.end,
           },
         },
         upsert: true,
@@ -70,7 +82,7 @@ export default async function handler(req, res) {
 
     await collection.bulkWrite(bulkOperations);
 
-    res.status(200).json({ message: "Assessment Data uploaded successfully" });
+    res.status(200).json({ message: "Certificate Data uploaded successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error updating data" });

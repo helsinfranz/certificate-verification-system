@@ -1,46 +1,44 @@
 import { signOut } from "next-auth/react";
 import classes from "./admin.module.css";
-import { SlOptions } from "react-icons/sl";
 import { IoMdLogOut } from "react-icons/io";
-import { FaHeadphonesAlt, FaUser } from "react-icons/fa";
-import { SiTicktick } from "react-icons/si";
-import {
-  MdDelete,
-  MdKeyboardDoubleArrowDown,
-  MdOutlineAssessment,
-  MdOutlineCollectionsBookmark,
-  MdOutlineRateReview,
-} from "react-icons/md";
+import { FaUser } from "react-icons/fa";
+import { MdDelete, MdKeyboardDoubleArrowDown } from "react-icons/md";
 import { IoSave } from "react-icons/io5";
-import { CiLinkedin } from "react-icons/ci";
 import { HiBell } from "react-icons/hi";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { RiFileExcel2Fill } from "react-icons/ri";
 import { FiUpload } from "react-icons/fi";
 import { ImBin } from "react-icons/im";
-import Image from "next/image";
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import ThreeDot from "../loader/three_body";
-import { useRouter } from "next/router";
-import Link from "next/link";
 
 export default function AdminComponent({ session }) {
-  const [selectedNav, setSelectedNav] = useState(1);
   const [dataArray, setDataArray] = useState([]);
   const [filename, setFilename] = useState("Not selected file");
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null); // Create a ref for the file input
-  const router = useRouter();
 
-  function changeSelected(c) {
-    setSelectedNav(c);
-    setFilename("Not selected file");
-    setDataArray([]);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // Reset the file input value
+  function getJsDateFromExcel(excelDate) {
+    const SECONDS_IN_DAY = 24 * 60 * 60;
+    const MISSING_LEAP_YEAR_DAY = SECONDS_IN_DAY * 1000;
+    const MAGIC_NUMBER_OF_DAYS = 25567 + 2;
+
+    if (!Number(excelDate)) {
+      alert("wrong input format");
+      return;
     }
-    window.scrollTo(0, 0);
+
+    const delta = excelDate - MAGIC_NUMBER_OF_DAYS;
+    const parsed = delta * MISSING_LEAP_YEAR_DAY;
+    const date = new Date(parsed);
+
+    // Format the date as 'DD-MMM-YYYY'
+    const day = String(date.getDate()).padStart(2, "0"); // Add leading 0 if needed
+    const month = date.toLocaleString("en-US", { month: "short" }); // Get month in short format
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
   }
 
   function deleteHandler(id) {
@@ -66,8 +64,11 @@ export default function AdminComponent({ session }) {
 
           // Assuming the Excel has "Student ID" and "Marks" columns
           const extractedData = sheet.map((row) => ({
-            id: row["Student ID"],
-            marks: row["Marks"],
+            id: row["Certificate ID"],
+            name: row["Name"],
+            internship_domain: row["Internship Domain"],
+            start: getJsDateFromExcel(row["Starting Date"]),
+            end: getJsDateFromExcel(row["Ending Date"]),
           }));
 
           setDataArray(extractedData);
@@ -106,12 +107,18 @@ export default function AdminComponent({ session }) {
 
     dataArray.map((item, index) => {
       let studentID = item.id;
-      if (!item.id || !item.marks || isNaN(item.marks)) {
+      if (
+        !item.id ||
+        !item.name ||
+        !item.internship_domain ||
+        !item.start ||
+        !item.end
+      ) {
         alert("Error: Invalid data on id " + item.id + ".");
         return;
       }
       if (isNaN(item.id)) {
-        studentID = item.id.trim();
+        studentID = item.id?.trim();
         if (item.id.trim().length === 0) {
           alert("Error: Invalid data on id " + item.id + ".");
           return;
@@ -119,26 +126,17 @@ export default function AdminComponent({ session }) {
       }
       trimmedData.push({
         student_id: studentID,
-        marks: parseFloat(item.marks).toFixed(2),
+        name: item.name?.trim(),
+        internship_domain: item.internship_domain?.trim(),
+        start: item.start?.trim(),
+        end: item.end?.trim(),
       });
     });
 
     setLoading(true);
-    const uploadUrl = `
-      /api/upload/${
-        selectedNav === 1
-          ? "attendance"
-          : selectedNav === 2
-          ? "project-review"
-          : selectedNav === 3
-          ? "assessment"
-          : selectedNav === 4
-          ? "project-submission"
-          : "linkedIn-post"
-      }`;
 
     try {
-      const res = await fetch(uploadUrl, {
+      const res = await fetch("/api/upload/certificate", {
         method: "POST",
         body: JSON.stringify({
           data: trimmedData,
@@ -167,129 +165,6 @@ export default function AdminComponent({ session }) {
 
   return (
     <div className={classes.admin}>
-      {/* <div className={classes.adminTray}>
-        <div className={classes.adminUser}>
-          <div className={classes.adminImage} onClick={() => router.push("/")}>
-            <Image src="/logo.png" alt="RMS" width={75} height={75} />
-          </div>
-          <div className={classes.adminName}>RMS</div>
-          <div
-            className={classes.adminOptions}
-            onClick={() => router.push("/")}
-          >
-            <SlOptions />
-          </div>
-        </div>
-        <div className={classes.adminNav}>
-          <div
-            className={`${classes.adminSingleNav} ${
-              selectedNav === 1 ? classes.adminNavSelected : ""
-            }`}
-            onClick={() => changeSelected(1)}
-          >
-            <SiTicktick />
-            <div>Attendance</div>
-          </div>
-          <div
-            className={`${classes.adminSingleNav} ${
-              selectedNav === 2 ? classes.adminNavSelected : ""
-            }`}
-            onClick={() => changeSelected(2)}
-          >
-            <MdOutlineRateReview />
-            <div>Project Review</div>
-          </div>
-          <div
-            className={`${classes.adminSingleNav} ${
-              selectedNav === 3 ? classes.adminNavSelected : ""
-            }`}
-            onClick={() => changeSelected(3)}
-          >
-            <MdOutlineAssessment />
-            <div>Assessment</div>
-          </div>
-          <div
-            className={`${classes.adminSingleNav} ${
-              selectedNav === 4 ? classes.adminNavSelected : ""
-            }`}
-            onClick={() => changeSelected(4)}
-          >
-            <MdOutlineCollectionsBookmark />
-            <div>Project Submission</div>
-          </div>
-          <div
-            className={`${classes.adminSingleNav} ${
-              selectedNav === 5 ? classes.adminNavSelected : ""
-            }`}
-            onClick={() => changeSelected(5)}
-          >
-            <CiLinkedin />
-            <div>LinkedIn Post</div>
-          </div>
-        </div>
-        <div className={classes.adminOthers}>
-          <Link
-            className={classes.adminSingleOthers}
-            href={"mailto:rhimanshu828@gmail.com"}
-          >
-            <FaHeadphonesAlt />
-            <div>Support Center</div>
-          </Link>
-          <div className={classes.adminSingleOthers} onClick={() => signOut()}>
-            <IoMdLogOut />
-            <div>Logout</div>
-          </div>
-        </div>
-      </div>
-      <div className={`${classes.adminTray} ${classes.adminSmall}`}>
-        <div className={classes.adminNav}>
-          <div
-            className={`${classes.adminSingleNav} ${
-              selectedNav === 1 ? classes.adminNavSelected : ""
-            }`}
-            onClick={() => changeSelected(1)}
-          >
-            <SiTicktick />
-            <div>Attendance</div>
-          </div>
-          <div
-            className={`${classes.adminSingleNav} ${
-              selectedNav === 2 ? classes.adminNavSelected : ""
-            }`}
-            onClick={() => changeSelected(2)}
-          >
-            <MdOutlineRateReview />
-            <div>Project Review</div>
-          </div>
-          <div
-            className={`${classes.adminSingleNav} ${
-              selectedNav === 3 ? classes.adminNavSelected : ""
-            }`}
-            onClick={() => changeSelected(3)}
-          >
-            <MdOutlineAssessment />
-            <div>Assessment</div>
-          </div>
-          <div
-            className={`${classes.adminSingleNav} ${
-              selectedNav === 4 ? classes.adminNavSelected : ""
-            }`}
-            onClick={() => changeSelected(4)}
-          >
-            <MdOutlineCollectionsBookmark />
-            <div>Project Submission</div>
-          </div>
-          <div
-            className={`${classes.adminSingleNav} ${
-              selectedNav === 5 ? classes.adminNavSelected : ""
-            }`}
-            onClick={() => changeSelected(5)}
-          >
-            <CiLinkedin />
-            <div>LinkedIn Post</div>
-          </div>
-        </div>
-      </div> */}
       <div className={classes.adminMain}>
         <div className={classes.adminMainTop}>
           <div className={classes.adminMainText}>
@@ -382,14 +257,22 @@ export default function AdminComponent({ session }) {
               </div>
               <div className={classes.adminMainEntry}>
                 <div className={classes.tableMain}>
-                  <div>Student ID</div>
-                  <div>Marks</div>
+                  <div>Certificate ID</div>
+                  <div>Name</div>
+                  <div>Internship Domain</div>
+                  <div>Starting Date</div>
+                  <div>Ending Date</div>
                   <div style={{ justifySelf: "center" }}>Delete</div>
                 </div>
                 {dataArray.map((data, idx) => (
                   <div className={classes.tableMain} key={idx}>
                     <div className={classes.tableId}>{data.id}</div>
-                    <div className={classes.tableMarks}>{data.marks}</div>
+                    <div className={classes.tableId}>{data.name}</div>
+                    <div className={classes.tableId}>
+                      {data.internship_domain}
+                    </div>
+                    <div className={classes.tableId}>{data.start}</div>
+                    <div className={classes.tableId}>{data.end}</div>
                     <div
                       className={classes.tableDelete}
                       onClick={() => deleteHandler(data.id)}

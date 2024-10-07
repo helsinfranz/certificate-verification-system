@@ -330,7 +330,7 @@
 
 .tableMain {
   display: grid;
-  grid-template-columns: 45fr 45fr 10fr;
+  grid-template-columns: 18fr 18fr 18fr 18fr 18fr 10fr;
   align-items: center;
   width: 100%;
   padding: 2rem;

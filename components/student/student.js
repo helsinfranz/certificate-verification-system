@@ -29,14 +29,13 @@ export default function Student() {
         alert(data.message || "Something went wrong");
         return;
       }
+      console.log(data);
       setResult({
-        id: data.student_id,
-        attendanceMarks: data.assessment_marks,
-        projectReviewMarks: data.project_review_marks,
-        assessmentMarks: data.attendance_marks,
-        projectSubmissionMarks: data.project_submission_marks,
-        linkedInPostMarks: data.linkedin_post_marks,
-        total: data.total,
+        id: data.certificate_id,
+        name: data.name,
+        internship_domain: data.internship_domain,
+        start: data.start,
+        end: data.end,
       });
     } catch (error) {
       console.log(error);
