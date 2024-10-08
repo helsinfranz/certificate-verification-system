@@ -1,17 +1,19 @@
 import Image from "next/image";
 import classes from "./student.module.css";
 import Link from "next/link";
-import { CiCalculator2 } from "react-icons/ci";
-import { FaCheck, FaLinkedinIn } from "react-icons/fa";
 import { useRef, useState } from "react";
 import Loader from "../loader/loader";
 import GlitchLoader from "../loader/glitch_loader";
 import { usePathname } from "next/navigation";
+import ThreeDot from "../loader/three_body";
+import styles from "./download.module.css";
+import { generateCertificate } from "@/lib/download";
 
 export default function Student() {
   const [searchOn, setSearchOn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState({});
+  const [click, setClick] = useState(false);
   const searchMainRef = useRef(null);
   const searchRef = useRef(null);
   const pathname = usePathname();
@@ -42,6 +44,21 @@ export default function Student() {
     }
     setLoading(false);
   }
+
+  const handleDownload = () => {
+    console.log(click);
+    if (click) {
+      setClick(false);
+      return;
+    }
+    setClick(true);
+    const name = result.name;
+    const internshipDomain = result.internship_domain;
+    const startDate = result.start;
+    const endDate = result.end;
+
+    generateCertificate(name, internshipDomain, startDate, endDate);
+  };
   return (
     <div className={classes.centerDiv}>
       <header className={classes.header}>
@@ -86,11 +103,8 @@ export default function Student() {
         </div>
       </header>
       <div className={classes.heading}>
-        <h1>Check Your Result Instantly</h1>
-        <p>
-          Access your detailed academic performance at any time with just your
-          Student ID.
-        </p>
+        <h1>Generate Your Certificate Instantly</h1>
+        <p>View or Download your certificate instantly.</p>
         <form
           className={`${classes.searchbar} ${searchOn ? classes.searchOn : ""}`}
           onSubmit={submitHandler}
@@ -98,7 +112,7 @@ export default function Student() {
         >
           <input
             type="text"
-            placeholder="Enter Student ID"
+            placeholder="Enter Certificate ID"
             ref={searchRef}
             required
           />
@@ -119,7 +133,7 @@ export default function Student() {
                 <Loader />
               </div>
             )}
-            View Results
+            Get Certificate
           </button>
         </form>
         <div
@@ -133,19 +147,17 @@ export default function Student() {
           style={loading ? { overflow: "hidden" } : {}}
         >
           <h3>
-            Result for{" "}
+            Certificate for{" "}
             <strong>{result.id ? result.id : searchRef?.current?.value}</strong>
           </h3>
           <div className={classes.gridResultView}>
             <div className={classes.gridResultViewSingle}>
-              <div className={classes.gridResultViewTopic}>
-                Attendance Marks:
-              </div>
+              <div className={classes.gridResultViewTopic}>Name:</div>
               <div className={classes.gridResultViewMain}>
                 {loading ? (
                   <GlitchLoader />
-                ) : result.attendanceMarks ? (
-                  result.attendanceMarks
+                ) : result.name ? (
+                  result.name
                 ) : (
                   "N.A."
                 )}
@@ -153,107 +165,76 @@ export default function Student() {
             </div>
             <div className={classes.gridResultViewSingle}>
               <div className={classes.gridResultViewTopic}>
-                Project Review Marks:
+                Internship Domain:
               </div>
               <div className={classes.gridResultViewMain}>
                 {loading ? (
                   <GlitchLoader />
-                ) : result.projectReviewMarks ? (
-                  result.projectReviewMarks
+                ) : result.internship_domain ? (
+                  result.internship_domain
                 ) : (
                   "N.A."
                 )}
               </div>
             </div>
             <div className={classes.gridResultViewSingle}>
-              <div className={classes.gridResultViewTopic}>
-                Assessment Marks:
-              </div>
+              <div className={classes.gridResultViewTopic}>Start Date:</div>
               <div className={classes.gridResultViewMain}>
                 {loading ? (
                   <GlitchLoader />
-                ) : result.assessmentMarks ? (
-                  result.assessmentMarks
+                ) : result.start ? (
+                  result.start
                 ) : (
                   "N.A."
                 )}
               </div>
             </div>
             <div className={classes.gridResultViewSingle}>
-              <div className={classes.gridResultViewTopic}>
-                Project Submission Marks:
-              </div>
+              <div className={classes.gridResultViewTopic}>End Date:</div>
               <div className={classes.gridResultViewMain}>
-                {loading ? (
-                  <GlitchLoader />
-                ) : result.projectSubmissionMarks ? (
-                  result.projectSubmissionMarks
-                ) : (
-                  "N.A."
-                )}
-              </div>
-            </div>
-            <div className={classes.gridResultViewSingle}>
-              <div className={classes.gridResultViewTopic}>
-                LinkedIn Post Marks:
-              </div>
-              <div className={classes.gridResultViewMain}>
-                {loading ? (
-                  <GlitchLoader />
-                ) : result.linkedInPostMarks ? (
-                  result.linkedInPostMarks
-                ) : (
-                  "N.A."
-                )}
+                {loading ? <GlitchLoader /> : result.end ? result.end : "N.A."}
               </div>
             </div>
           </div>
           <div className={classes.gridResultViewTotal}>
-            <div className={classes.gridResultViewTopic}>Total</div>
+            <div
+              className={`${classes.gridResultViewTopicLast} ${classes.gridResultViewTopic}`}
+            >
+              Download Certificate
+            </div>
             <div className={classes.gridResultViewMain}>
               {loading ? (
-                <GlitchLoader />
-              ) : result.total ? (
-                result.total
+                <ThreeDot />
+              ) : result ? (
+                <div className={styles.container} onClick={handleDownload}>
+                  <label className={styles.label}>
+                    <input type="checkbox" className={styles.input} />
+                    <span className={styles.circle}>
+                      <svg
+                        className={styles.icon}
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M12 19V5m0 14-4-4m4 4 4-4"
+                        ></path>
+                      </svg>
+                      <div className={styles.square}></div>
+                    </span>
+                    <p className={styles.title}>Download</p>
+                    <p className={styles.title}>Open</p>
+                  </label>
+                </div>
               ) : (
                 "N.A."
               )}
             </div>
-          </div>
-        </div>
-      </div>
-      <div className={classes.sections}>
-        <h2>Track Your Academic performance</h2>
-        <div className={classes.boxes}>
-          <div className={classes.box}>
-            <h4>
-              <FaCheck />
-              View Your Marks
-            </h4>
-            <p>
-              Instantly access marks across all categories, including
-              Attendance, Project Reviews, and Assessments.
-            </p>
-          </div>
-          <div className={classes.box}>
-            <h4>
-              <CiCalculator2 />
-              Total Marks Calculations
-            </h4>
-            <p>
-              Your total score is automatically calculated from all categories,
-              providing you with an accurate overview.
-            </p>
-          </div>
-          <div className={classes.box}>
-            <h4>
-              <FaLinkedinIn />
-              LinkedIn Post Review
-            </h4>
-            <p>
-              Track the marks you’ve earned from LinkedIn post submissions and
-              understand your social impact.
-            </p>
           </div>
         </div>
       </div>

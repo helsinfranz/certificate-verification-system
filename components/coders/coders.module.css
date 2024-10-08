@@ -1,4 +1,5 @@
 .centerDiv {
+  gap: 1rem;
   justify-content: unset;
 }
 

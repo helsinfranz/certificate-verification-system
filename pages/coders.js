@@ -10,7 +10,7 @@ export default function Home() {
           name="description"
           content="Coders for certificate verification system"
         />
-        <style>{`body { background: #000!important; }`}</style>
+        {/* <style>{`body { background: #000!important; }`}</style> */}
       </Head>
       <CodersComp />
     </>

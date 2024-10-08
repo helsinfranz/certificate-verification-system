@@ -4,7 +4,7 @@
   width: 100vw;
   /* display: grid;
   grid-template-columns: 1fr 4fr; */
-  background-color: black;
+  /* background-color: black; */
   font-size: 2rem;
   font-weight: 400;
 }
@@ -97,10 +97,11 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-top: 1.5rem;
   padding: 2rem 2.5rem;
+  padding-top: 4rem;
   padding-bottom: 3.5rem;
   border-bottom: 1px solid #222;
+  background-color: black;
 }
 
 .adminMainText {
@@ -232,7 +233,7 @@
 .header {
   flex: 1;
   width: 100%;
-  border: 2px dashed rgba(255, 255, 255, 0.7);
+  border: 2px dashed rgb(51, 51, 168, 0.7);
   border-radius: 1rem;
   display: flex;
   align-items: center;
@@ -240,6 +241,7 @@
   flex-direction: column;
   gap: 2rem;
   cursor: pointer;
+  background-color: rgb(51, 51, 168, 0.2);
 }
 
 .header svg {
@@ -303,8 +305,8 @@
   padding: 1rem 2rem;
   font-size: 1.7rem;
   cursor: pointer;
-  background-color: rgba(0, 255, 110, 0.2);
-  border: 1px solid rgba(0, 255, 110, 0.2);
+  background-color: rgba(51, 51, 168, 0.4);
+  border: 1px solid rgba(51, 51, 168, 0.8);
   border-radius: 1rem;
   color: white;
   display: flex;
@@ -418,6 +420,9 @@
   .adminUser {
     padding: 0.5rem;
   }
+  .tableMain > div {
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 48.75em) {
@@ -443,6 +448,9 @@
   }
   .adminUserMain > div:last-child {
     margin-left: 1rem;
+  }
+  .tableMain > div {
+    font-size: 1rem;
   }
 }
 

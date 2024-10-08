@@ -4,8 +4,7 @@
   display: flex;
   color: white;
   flex-direction: column;
-  gap: 2rem;
-  justify-content: space-between;
+  gap: 15rem;
   align-items: center;
   padding: 1rem;
 }
@@ -577,5 +576,16 @@
 
   .viewResultOn {
     top: 7rem !important;
+  }
+
+  .gridResultViewTotal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+  }
+
+  .gridResultViewTopicLast {
+    display: none;
   }
 }

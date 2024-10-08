@@ -163,10 +163,6 @@ export default function Auth() {
                   <label htmlFor="password">Password</label>
                 </div>
                 <button type="submit">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
                   {loading ? <Loader /> : "Submit"}
                 </button>
               </form>

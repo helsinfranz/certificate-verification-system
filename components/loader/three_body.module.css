@@ -2,7 +2,7 @@
 .threebody {
   --uib-size: 2.2rem;
   --uib-speed: 0.8s;
-  --uib-color: rgb(0, 255, 110);
+  --uib-color: rgb(51, 51, 168);
   position: relative;
   display: inline-block;
   height: var(--uib-size);
