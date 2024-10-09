@@ -1,40 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CVS (Certificate Verification System)
 
-## Getting Started
+## Overview
 
-First, run the development server:
+The **CVS (Certificate Verification System)** is a web application built with **Next.js** and **MongoDB**, designed to streamline the process of uploading and viewing student certificates. The system allows **students** to view or download their certificates by entering their certificate ID without needing to log in in pdf format, while **admins** are required to log in to upload certificate data via Excel files.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Key Features:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Student Certificate View**: Students can search for their certificates by entering their **certificate ID**, which displays all assessment scores for that ID.
+- **Admin Data Upload**: Admins can log in and upload Excel files containing Certificate data, which are processed and saved to MongoDB.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Functionality
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Student Portal
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- **No Login Required**: Students can access the certificate search page without logging in.
+- **Search by Certificate ID**: Students enter their **certificate ID** to view or download their certificate in pdf format.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The certificates are fetched from the following API route:
 
-## Learn More
+- `/api/results/[certificateId]`
 
-To learn more about Next.js, take a look at the following resources:
+### Admin Panel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Admin Login**: Admins are required to log in to access the data upload functionality.
+- **Excel Upload**: Admins can upload Excel files to add or update certificate data in bulk.
+- **Dynamic Upload API**: Based on the selected excel, the data is uploaded to the following API route:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- `/api/upload/certificate`
 
-## Deploy on Vercel
+### API Endpoints
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Student Certificates**:
+  - `GET /api/results/[certificateId]`: Retrieves all certificate details for the given certificate ID.
+- **Admin Bulk Upload** (Requires Login):
+  - `POST /api/upload/certificate`: Upload certificate data.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This API route processes an uploaded Excel file, converts the data to JSON format, and saves it in MongoDB.
+
+## Tech Stack
+
+- **Frontend**: Next.js (React Framework)
+- **Backend**: Node.js (NextJS API Routes)
+- **Database**: MongoDB (for storing data)
+
+## How to Run the Project
+
+1. **Clone the Repository**:
+
+   ```bash
+   git clone <repo-url>
+   cd certificate-verification-system
+   ```
+
+2. **Install Dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+3. **Run the Project**:
+
+   - For development:
+     ```bash
+     npm run dev
+     ```
+
+4. **Access the Application**:
+   - Visit `http://localhost:3000` to access the app locally.
+
+## Usage
+
+1. **For Students**:
+
+   - Navigate to the certificate search page.
+   - Enter your **certificate ID** to view your certificate details.
+
+2. **For Admins**:
+   - Log in to access the admin panel.
+   - Upload the relevant Excel file to update or upload student certificate details.
+
+## License
+
+This project is licensed under the MIT License.

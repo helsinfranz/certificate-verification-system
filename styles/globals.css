@@ -100,3 +100,9 @@ a {
 .loading_logo {
   animation: fade 2s infinite;
 }
+
+/* disable scroll width */
+
+::-webkit-scrollbar {
+  width: 0px;
+}

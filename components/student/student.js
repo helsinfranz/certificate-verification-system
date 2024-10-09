@@ -27,11 +27,10 @@ export default function Student() {
     try {
       const res = await fetch(`/api/results/${search}`);
       const data = await res.json();
-      if (!res.ok) {
-        alert(data.message || "Something went wrong");
-        return;
-      }
-      console.log(data);
+      // if (!res.ok) {
+      //   alert(data.message || "Something went wrong");
+      //   return;
+      // }
       setResult({
         id: data.certificate_id,
         name: data.name,
@@ -46,7 +45,6 @@ export default function Student() {
   }
 
   const handleDownload = () => {
-    console.log(click);
     if (click) {
       setClick(false);
       return;
@@ -70,6 +68,9 @@ export default function Student() {
               width={150}
               height={150}
               priority={true}
+              style={{
+                mixBlendMode: "lighten",
+              }}
             />
           </Link>
         </div>
@@ -104,7 +105,6 @@ export default function Student() {
       </header>
       <div className={classes.heading}>
         <h1>Generate Your Certificate Instantly</h1>
-        <p>View or Download your certificate instantly.</p>
         <form
           className={`${classes.searchbar} ${searchOn ? classes.searchOn : ""}`}
           onSubmit={submitHandler}
@@ -136,6 +136,7 @@ export default function Student() {
             Get Certificate
           </button>
         </form>
+        <p>View or Download your certificate instantly.</p>
         <div
           className={`${searchOn ? classes.backdrop : ""}`}
           style={searchOn ? {} : { opacity: 0, pointerEvents: "none" }}
@@ -205,7 +206,7 @@ export default function Student() {
             <div className={classes.gridResultViewMain}>
               {loading ? (
                 <ThreeDot />
-              ) : result ? (
+              ) : result.name ? (
                 <div className={styles.container} onClick={handleDownload}>
                   <label className={styles.label}>
                     <input type="checkbox" className={styles.input} />

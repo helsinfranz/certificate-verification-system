@@ -68,6 +68,9 @@ export default function CodersComp() {
               width={150}
               height={150}
               priority={true}
+              style={{
+                mixBlendMode: "lighten",
+              }}
             />
           </Link>
         </div>

@@ -95,7 +95,7 @@
 }
 
 .heading p {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
 }
@@ -106,7 +106,8 @@
   align-items: center;
   border-radius: 999px;
   padding: 0.5rem;
-  background-color: rgb(30, 30, 30);
+  border: 1px solid rgb(255, 255, 255, 0.5);
+  /* background-color: rgb(30, 30, 30); */
 }
 
 .searchbar input {
